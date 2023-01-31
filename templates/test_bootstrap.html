@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <form>
+        <input type="button" name="Like" style="background-image: url('/static/like.png');
+                                                background-color: white;
+                                                background-repeat: no-repeat;
+                                                background-size: 2em;
+                                                border: none;
+                                                width: 2.3em;
+                                                height: 2.3em;">
+    </form>
+</body>
+
+<script>
+    var btn = document.querySelector('input');
+
+    btn.addEventListener('click', updateBtn);
+
+    function updateBtn(){
+        if(btn.name === 'Like'){
+            btn.name = 'Unlike';
+            btn.style.backgroundImage = "url('/static/red_like.png')"
+        } else {
+            btn.name = 'Like'
+            btn.style.backgroundImage = "url('/static/like.png')"
+        }
+    }
+</script>
+
+
+</html>

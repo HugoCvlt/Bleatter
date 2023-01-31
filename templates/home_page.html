@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Home page</title>{% endblock %}
+{% block style %}<style>
+    .link-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .link-button:focus {
+        outline: none;
+    }
+
+    .link-button:active {
+        color: red;
+    }
+</style>
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="text-center">
+                <h1>Feeds</h1>
+            </div>
+
+            <ul class="list-group">
+                {%for author,b in messages%}
+                <li class="list-group-item list-group-item-action flex-column align-items-start mt-3 shadow p-3 ">
+                    <a style="color: #219EBC" href="/profile/{{author.id}}"><b>@{{author.username}}</b></a>
+                    <p class="mb-1"><b>{{b.title}}</b></p>
+                    <p class="mb-1">{{b.content}}</p>
+                    <small>{{b.date}}</small>
+                    <div class="row g-2">
+                        <!--LIKE-->
+                        <div class="p-1">
+                            <div class="col">
+
+                                {%if (b.id not in like_index[current_user]) %}
+                                <form>
+                                    <label for="like">{{b.like}}</label>
+                                    <input class="like" onclick="updateLike_btn(this, '{{b.id}}')" type="button"
+                                        name="Like" id="like" style="background-image: url('/static/like.png');
+                                                                            background-color: white;
+                                                                            background-repeat: no-repeat;
+                                                                            background-size: 2em;
+                                                                            border: none;
+                                                                            width: 2.3em;
+                                                                            height: 2.3em;
+                                                                            ">
+
+                                </form>
+                                {% else %}
+                                <form>
+                                    <label for="like">{{b.like}}</label>
+                                    <input class="like" id="like" onclick="updateLike_btn(this, '{{b.id}}')"
+                                        type="button" name="Unlike" style="background-image: url('/static/red_like.png');
+                                                                            background-color: white;
+                                                                            background-repeat: no-repeat;
+                                                                            background-size: 2em;
+                                                                            border: none;
+                                                                            width: 2.3em;
+                                                                            height: 2.3em;
+                                                                            ">
+                                </form>
+                                {% endif %}
+
+                            </div>
+                        </div>
+
+                        <!--REBLEAT-->
+                        <div class="p-1">
+                            <div class="col">
+                                {%if (b.id not in rb_index[current_user]) %}
+                                <form>
+                                    <label for="rebleat">{{b.retweet}}</label>
+                                    <input class="rebleat" id="rebleat" onclick="updateRB_btn(this, '{{b.id}}')"
+                                        type="button" name="Rebleat" style="background-image: url('/static/rebleat.png');
+                                                                            background-color: white;
+                                                                            background-repeat: no-repeat;
+                                                                            background-size: 2em;
+                                                                            border: none;
+                                                                            width: 2.3em;
+                                                                            height: 2.3em;
+                                                                            ">
+                                </form>
+                                {% else %}
+                                <form>
+                                    <label for="rebleat">{{b.retweet}}</label>
+                                    <input class="rebleat" id="rebleat" onclick="updateRB_btn(this, '{{b.id}}')"
+                                        type="button" name="Unrebleat" style="background-image: url('/static/black_rebleat.png');
+                                                                            background-color: white;
+                                                                            background-repeat: no-repeat;
+                                                                            background-size: 2em;
+                                                                            border: none;
+                                                                            width: 2.3em;
+                                                                            height: 2.3em;
+                                                                            ">
+                                </form>
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+
+                        <!--REPLY-->
+                        <!--<div class="p-1">
+                            <div class="col">
+                                {{b.reply}}
+                                <img src="{{url_for('static', filename='reply.png')}}" height="20px" width="20px">
+
+                            </div>
+                        </div> -->
+                    </div>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+        <!--COL-->
+        <div class="col col-lg-2 rounded">
+            <h4><b>Trend for you</b></h4>
+            <ul class="list-group align-items-center ">
+                {%for w,n in most_used_word %}
+                <li
+                    class="list-group-item list-group-item-action flex-column align-items-start shadow bg-warning text-dark">
+                    <form action="/home_page" method="post">
+                        <input type="hidden" class="form-control mr-sm-2" type="search" name="search" value="{{w}}">
+                        <button class="link-button" type="submit"><b>#{{w}}</b>
+                        </button>
+                    </form>
+                    <small>{{n}} Bleats</small>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+
+    </div>
+    <!--ROW-->
+</div>
+<!--CONTAINER-->
+<script>
+    function updateLike_btn(ele, id_bleat) {
+        if (ele.name === 'Like') {
+            ele.name = 'Unlike';
+            ele.style.backgroundImage = "url('/static/red_like.png')"
+            fetch("/like/" + id_bleat, { "method": "POST" })
+            setTimeout("location.reload(true);", 500)
+        } else {
+            ele.name = 'Like'
+            ele.style.backgroundImage = "url('/static/like.png')"
+            fetch("/like/" + id_bleat, { "method": "DELETE" })
+            setTimeout("location.reload(true);", 500)
+        }
+    }
+
+    function updateRB_btn(ele, id_bleat) {
+        if (ele.name === 'Rebleat') {
+            ele.name = 'Unrebleat';
+            ele.style.backgroundImage = "url('/static/black_rebleat.png')"
+            fetch("/rebleat/" + id_bleat, { "method": "POST" })
+            setTimeout("location.reload(true);", 500)
+        } else {
+            ele.name = 'Rebleat'
+            ele.style.backgroundImage = "url('/static/rebleat.png')"
+            fetch("/rebleat/" + id_bleat, { "method": "DELETE" })
+            setTimeout("location.reload(true);", 500)
+        }
+    }
+
+</script>
+{% endblock %}

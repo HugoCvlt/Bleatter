@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}<title> Bleatter</title>{% endblock %}
+{% block style %}{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    {%include 'flash.html' %}
+    <div class="text-center p-3">
+        <img src="{{url_for('static', filename='logo1.png')}}" class="center-block" alt="Sample image" />
+    </div>
+    <div>
+        <h1 class="text-center p-2"><b>Welcome back {{name}} on Bleatter</b></h1>
+    </div>
+</div>
+{% endblock %}

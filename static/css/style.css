@@ -1,0 +1,100 @@
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px #eee solid;
+    color: #009CFA;
+    text-align: left;
+    padding: 10px;
+}
+
+.feed{
+    margin-top: 20px;
+}
+
+nav a {
+    color: #009CFA;
+    font-size: 3em;
+    margin-left: 50px;
+    text-decoration: none;
+}
+
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+}
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    margin-left: 50px;
+}
+
+input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid rgb(251, 143, 0);
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    color: white;
+}
+
+.sidenav_left {
+    height: 100%;
+    width: 25%;
+    position: fixed;
+    top: 200;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-right: 1px solid rgb(241, 153, 0);
+    border-top: 2px solid rgb(241, 153, 0);
+    border-radius: 5px;
+}
+
+.sidenav_right {
+    height: 100%;
+    width: 25%;
+    position: fixed;
+    top: 200;
+    right: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    border-left: 1px solid rgb(241, 153, 0);
+    border-top: 2px solid rgb(241, 153, 0);
+    border-radius: 5px;
+}
+  
+.sidenav_left a {
+    padding: 6px 8px 6px 16px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    color: #000000;
+}
+  
+.sidenav_left a:hover {
+    background-color: rgb(247, 249, 249);
+}
+
+.main {
+    margin-left: 17%; /* Same as the width of the left sidebar */
+    margin-right: 17%; /*Same as the width of the right sizebar*/
+    margin-top: 200px;
+    padding: 0px 10px;
+  }
+
+.bleat {
+    border-top: 1px solid rgb(241, 153, 0);
+}
+
+.bleat:hover{
+    background-color: rgb(247, 249, 249);
+}
+
+.pp{
+    width: 6%;
+    height: 6%;
+    margin-top: 10px;
+    margin-right: 10px;
+    float: left;
+}
